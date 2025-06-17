@@ -3,8 +3,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:national_identic/nationality.dart';
-//import 'package:national_identic/codenames.dart';
-//import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'dart:convert';
@@ -67,17 +65,17 @@ class _MainPageContentState extends State<MainPageContent> {
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
                   return Column(children: [
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[0].countryId.toLowerCase()}:')} ${snapshot.data!.country[0].countryId}: ${snapshot.data!.country[0].probability*100}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[1].countryId.toLowerCase()}:')} ${snapshot.data!.country[1].countryId}: ${snapshot.data!.country[1].probability*100}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[2].countryId.toLowerCase()}:')} ${snapshot.data!.country[2].countryId}: ${snapshot.data!.country[2].probability*100}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[3].countryId.toLowerCase()}:')} ${snapshot.data!.country[3].countryId}: ${snapshot.data!.country[3].probability*100}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[4].countryId.toLowerCase()}:')} ${snapshot.data!.country[4].countryId}: ${snapshot.data!.country[4].probability*100}%'),
+                    Text('${parser.emojify(':flag-${snapshot.data!.country[0].countryId.toLowerCase()}:')} ${snapshot.data!.country[0].countryId}: ${(snapshot.data!.country[0].probability*100).roundToDouble()}%'),
+                    Text('${parser.emojify(':flag-${snapshot.data!.country[1].countryId.toLowerCase()}:')} ${snapshot.data!.country[1].countryId}: ${(snapshot.data!.country[1].probability*100).roundToDouble()}%'),
+                    Text('${parser.emojify(':flag-${snapshot.data!.country[2].countryId.toLowerCase()}:')} ${snapshot.data!.country[2].countryId}: ${(snapshot.data!.country[2].probability*100).roundToDouble()}%'),
+                    Text('${parser.emojify(':flag-${snapshot.data!.country[3].countryId.toLowerCase()}:')} ${snapshot.data!.country[3].countryId}: ${(snapshot.data!.country[3].probability*100).roundToDouble()}%'),
+                    Text('${parser.emojify(':flag-${snapshot.data!.country[4].countryId.toLowerCase()}:')} ${snapshot.data!.country[4].countryId}: ${(snapshot.data!.country[4].probability*100).roundToDouble()}%'),
                   ]
                   );
               }
               else if (snapshot.hasError && name != ''){
                 late String errorNat = snapshot.error.toString();
-                /*
+
                 return AlertDialog(
                   title: const Text('App is broken at nat',),
                   actions: [
@@ -86,8 +84,7 @@ class _MainPageContentState extends State<MainPageContent> {
                     ),
                   ],
                 );
-                */
-                print(errorNat);
+                //print(errorNat);
                 /*отключил обработчик ошибок, чтобы не пердело
                  при обновлении MainPageContentState. Надо переделать!!!
                  */

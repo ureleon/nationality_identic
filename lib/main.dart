@@ -1,11 +1,7 @@
 //import 'dart:html';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/rendering.dart';
-//import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:national_identic/other_pages.dart';
-//import 'package:national_identic/nationality.dart';
-//import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -28,16 +24,20 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             foregroundColor:Colors.white,
             backgroundColor: Colors.blue,
-            leading: const Icon(Icons.menu,),
+            leading: DrawerButton(),
             title:const Text('National identic!',),
           ),
           body: Container(
               padding: EdgeInsets.all(queryData.size.width*0.05),
               child: const MainPageContent()),
           drawer: Drawer(child: Column(children:[
+            Text('You can type interesting name on any language,'
+                ' BUT working more stable this version of program with English Language. In future here may be settings and auto-translation, but not now'),
             Spacer(),
-            Text("Here will be my help and settings"),
-            HelpPage(),
+            Text("All percents is only probability of naming people in some countries"),
+            Container(height: 10,),
+            Text('this app developed not for a sale, here used free API of side developers',
+              style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),),
             Spacer()
           ]
           ),),
