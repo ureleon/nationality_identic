@@ -64,34 +64,23 @@ class _MainPageContentState extends State<MainPageContent> {
             future: fetchNationality(),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
-                  return Column(children: [
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[0].countryId.toLowerCase()}:')} ${snapshot.data!.country[0].countryId}: ${(snapshot.data!.country[0].probability*100).roundToDouble()}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[1].countryId.toLowerCase()}:')} ${snapshot.data!.country[1].countryId}: ${(snapshot.data!.country[1].probability*100).roundToDouble()}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[2].countryId.toLowerCase()}:')} ${snapshot.data!.country[2].countryId}: ${(snapshot.data!.country[2].probability*100).roundToDouble()}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[3].countryId.toLowerCase()}:')} ${snapshot.data!.country[3].countryId}: ${(snapshot.data!.country[3].probability*100).roundToDouble()}%'),
-                    Text('${parser.emojify(':flag-${snapshot.data!.country[4].countryId.toLowerCase()}:')} ${snapshot.data!.country[4].countryId}: ${(snapshot.data!.country[4].probability*100).roundToDouble()}%'),
-                  ]
-                  );
-              }
-              else if (snapshot.hasError && name != ''){
-                late String errorNat = snapshot.error.toString();
+                String readyText = '';
+                List<Country> snapData = snapshot.data!.country;
+                for(int o = 0; o < snapData.length; o++){
+                  readyText += ' ${
+                      parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${
+                      snapData[o].countryId}: ${(snapData[o].probability*100).roundToDouble()}%\n';
+                }
+                return Text(style:TextStyle(fontSize: 14+queryData.size.height*0.005),readyText);
 
-                return AlertDialog(
-                  title: const Text('App is broken at nat',),
-                  actions: [
-                    Text(
-                        'Catched error in future of Nationality, and error is: $errorNat'
-                    ),
-                  ],
-                );
-                //print(errorNat);
-                /*отключил обработчик ошибок, чтобы не пердело
-                 при обновлении MainPageContentState. Надо переделать!!!
-                 */
-                //return const CircularProgressIndicator();
+              }
+              else if (snapshot.hasError && name != '' || name !='' && snapshot.data!.country.isEmpty){
               return Text("I don't understand this name $name, Try another");
               }
-              return const Spacer();
+              while(name ==''){
+                return const Spacer();
+              }
+              return Spacer();
             }
         ),
       ],
@@ -114,12 +103,4 @@ class _MainPageContentState extends State<MainPageContent> {
     else if (name == '') {}
     throw ("nat is goin' to do");
   }
-  }
-  class HelpPage extends StatelessWidget {
-    const HelpPage({super.key});
-
-    @override
-    Widget build(BuildContext context) {
-      return Text("See'n you later");
-    }
   }

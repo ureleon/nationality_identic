@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
               padding: EdgeInsets.all(queryData.size.width*0.05),
               child: const MainPageContent()),
           drawer: Drawer(child: Column(children:[
+            const SizedBox(height: 30),
             Text('You can type interesting name on any language,'
                 ' BUT working more stable this version of program with English Language. In future here may be settings and auto-translation, but not now'),
             Spacer(),
