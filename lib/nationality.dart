@@ -6,20 +6,19 @@ class Nationality {
   String name;
   List<Country> country;
 
-  Nationality({
-    required this.count,
-    required this.name,
-    required this.country,
-  });
+  Nationality({required this.count, required this.name, required this.country});
 
-  factory Nationality.fromRawJson(String str) => Nationality.fromJson(json.decode(str));
+  factory Nationality.fromRawJson(String str) =>
+      Nationality.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory Nationality.fromJson(Map<String, dynamic> json) => Nationality(
     count: json["count"],
     name: json["name"],
-    country: List<Country>.from(json["country"].map((x) => Country.fromJson(x))),
+    country: List<Country>.from(
+      json["country"].map((x) => Country.fromJson(x)),
+    ),
   );
 
   Map<String, dynamic> toJson() => {
@@ -33,10 +32,7 @@ class Country {
   String countryId;
   double probability;
 
-  Country({
-    required this.countryId,
-    required this.probability,
-  });
+  Country({required this.countryId, required this.probability});
 
   factory Country.fromRawJson(String str) => Country.fromJson(json.decode(str));
 
