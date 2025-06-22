@@ -1,11 +1,11 @@
 //import 'package:national_identic/main.dart';
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:national_identic/nationality.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_emoji/flutter_emoji.dart';
-import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:national_identic/nationality.dart';
 
 class MainPageContent extends StatefulWidget {
   const MainPageContent({super.key});
@@ -31,7 +31,6 @@ class _MainPageContentState extends State<MainPageContent> {
     natCodes;
     natProbs;
     parser = EmojiParser();
-
   }
 
   @override
@@ -42,10 +41,12 @@ class _MainPageContentState extends State<MainPageContent> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context); // тут операнда с размером экрана
+    MediaQueryData queryData = MediaQuery.of(
+      context,
+    ); // тут операнда с размером экрана
     return Column(
       children: [
-        SizedBox(height: queryData.size.width * 0.005,),
+        SizedBox(height: queryData.size.width * 0.005),
         TextField(
           controller: _controller,
           onSubmitted: (String inputName) async {
@@ -61,27 +62,28 @@ class _MainPageContentState extends State<MainPageContent> {
           ),
         ),
         FutureBuilder<Nationality>(
-            future: fetchNationality(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
-                String readyText = '';
-                List<Country> snapData = snapshot.data!.country;
-                for(int o = 0; o < snapData.length; o++){
-                  readyText += ' ${
-                      parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${
-                      snapData[o].countryId}: ${(snapData[o].probability*100).roundToDouble()}%\n';
-                }
-                return Text(style:TextStyle(fontSize: 14+queryData.size.height*0.005),readyText);
-
+          future: fetchNationality(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
+              String readyText = '';
+              List<Country> snapData = snapshot.data!.country;
+              for (int o = 0; o < snapData.length; o++) {
+                readyText +=
+                    ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n';
               }
-              else if (snapshot.hasError && name != '' || name !='' && snapshot.data!.country.isEmpty){
+              return Text(
+                style: TextStyle(fontSize: 14 + queryData.size.height * 0.005),
+                readyText,
+              );
+            } else if (snapshot.hasError && name != '' ||
+                name != '' && snapshot.data!.country.isEmpty) {
               return Text("I don't understand this name $name, Try another");
-              }
-              while(name ==''){
-                return const Spacer();
-              }
-              return Spacer();
             }
+            while (name == '') {
+              return const Spacer();
+            }
+            return Spacer();
+          },
         ),
       ],
     );
@@ -90,7 +92,8 @@ class _MainPageContentState extends State<MainPageContent> {
   Future<Nationality> fetchNationality() async {
     if (name != '') {
       final responseNat = await http.get(
-          Uri.parse('https://api.nationalize.io/?name=$name'));
+        Uri.parse('https://api.nationalize.io/?name=$name'),
+      );
       if (responseNat.statusCode >= 200 && responseNat.statusCode < 300) {
         return Nationality.fromJson(jsonDecode(responseNat.body));
         //throw Exception(response.statusCode);
@@ -99,8 +102,7 @@ class _MainPageContentState extends State<MainPageContent> {
         // then throw an exception.
         throw (responseNat.statusCode);
       }
-    }
-    else if (name == '') {}
+    } else if (name == '') {}
     throw ("nat is goin' to do");
   }
-  }
+}

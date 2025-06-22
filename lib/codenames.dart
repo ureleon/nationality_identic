@@ -75,7 +75,8 @@ class CodeNames {
     required this.postalCode,
   });
 
-  factory CodeNames.fromRawJson(String str) => CodeNames.fromJson(json.decode(str));
+  factory CodeNames.fromRawJson(String str) =>
+      CodeNames.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
@@ -96,7 +97,9 @@ class CodeNames {
     region: json["region"],
     subregion: json["subregion"],
     languages: Languages.fromJson(json["languages"]),
-    translations: Map.from(json["translations"]).map((k, v) => MapEntry<String, Translation>(k, Translation.fromJson(v))),
+    translations: Map.from(
+      json["translations"],
+    ).map((k, v) => MapEntry<String, Translation>(k, Translation.fromJson(v))),
     latlng: List<int>.from(json["latlng"].map((x) => x)),
     landlocked: json["landlocked"],
     borders: List<String>.from(json["borders"].map((x) => x)),
@@ -134,7 +137,9 @@ class CodeNames {
     "region": region,
     "subregion": subregion,
     "languages": languages.toJson(),
-    "translations": Map.from(translations).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+    "translations": Map.from(
+      translations,
+    ).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
     "latlng": List<dynamic>.from(latlng.map((x) => x)),
     "landlocked": landlocked,
     "borders": List<dynamic>.from(borders.map((x) => x)),
@@ -159,11 +164,10 @@ class CodeNames {
 class CapitalInfo {
   List<double> latlng;
 
-  CapitalInfo({
-    required this.latlng,
-  });
+  CapitalInfo({required this.latlng});
 
-  factory CapitalInfo.fromRawJson(String str) => CapitalInfo.fromJson(json.decode(str));
+  factory CapitalInfo.fromRawJson(String str) =>
+      CapitalInfo.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
@@ -180,10 +184,7 @@ class Car {
   List<String> signs;
   String side;
 
-  Car({
-    required this.signs,
-    required this.side,
-  });
+  Car({required this.signs, required this.side});
 
   factory Car.fromRawJson(String str) => Car.fromJson(json.decode(str));
 
@@ -204,116 +205,82 @@ class CoatOfArms {
   String png;
   String svg;
 
-  CoatOfArms({
-    required this.png,
-    required this.svg,
-  });
+  CoatOfArms({required this.png, required this.svg});
 
-  factory CoatOfArms.fromRawJson(String str) => CoatOfArms.fromJson(json.decode(str));
+  factory CoatOfArms.fromRawJson(String str) =>
+      CoatOfArms.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory CoatOfArms.fromJson(Map<String, dynamic> json) => CoatOfArms(
-    png: json["png"],
-    svg: json["svg"],
-  );
+  factory CoatOfArms.fromJson(Map<String, dynamic> json) =>
+      CoatOfArms(png: json["png"], svg: json["svg"]);
 
-  Map<String, dynamic> toJson() => {
-    "png": png,
-    "svg": svg,
-  };
+  Map<String, dynamic> toJson() => {"png": png, "svg": svg};
 }
 
 class Currencies {
   Rub rub;
 
-  Currencies({
-    required this.rub,
-  });
+  Currencies({required this.rub});
 
-  factory Currencies.fromRawJson(String str) => Currencies.fromJson(json.decode(str));
+  factory Currencies.fromRawJson(String str) =>
+      Currencies.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Currencies.fromJson(Map<String, dynamic> json) => Currencies(
-    rub: Rub.fromJson(json["RUB"]),
-  );
+  factory Currencies.fromJson(Map<String, dynamic> json) =>
+      Currencies(rub: Rub.fromJson(json["RUB"]));
 
-  Map<String, dynamic> toJson() => {
-    "RUB": rub.toJson(),
-  };
+  Map<String, dynamic> toJson() => {"RUB": rub.toJson()};
 }
 
 class Rub {
   String name;
   String symbol;
 
-  Rub({
-    required this.name,
-    required this.symbol,
-  });
+  Rub({required this.name, required this.symbol});
 
   factory Rub.fromRawJson(String str) => Rub.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Rub.fromJson(Map<String, dynamic> json) => Rub(
-    name: json["name"],
-    symbol: json["symbol"],
-  );
+  factory Rub.fromJson(Map<String, dynamic> json) =>
+      Rub(name: json["name"], symbol: json["symbol"]);
 
-  Map<String, dynamic> toJson() => {
-    "name": name,
-    "symbol": symbol,
-  };
+  Map<String, dynamic> toJson() => {"name": name, "symbol": symbol};
 }
 
 class Demonyms {
   Eng eng;
   Eng fra;
 
-  Demonyms({
-    required this.eng,
-    required this.fra,
-  });
+  Demonyms({required this.eng, required this.fra});
 
-  factory Demonyms.fromRawJson(String str) => Demonyms.fromJson(json.decode(str));
+  factory Demonyms.fromRawJson(String str) =>
+      Demonyms.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Demonyms.fromJson(Map<String, dynamic> json) => Demonyms(
-    eng: Eng.fromJson(json["eng"]),
-    fra: Eng.fromJson(json["fra"]),
-  );
+  factory Demonyms.fromJson(Map<String, dynamic> json) =>
+      Demonyms(eng: Eng.fromJson(json["eng"]), fra: Eng.fromJson(json["fra"]));
 
-  Map<String, dynamic> toJson() => {
-    "eng": eng.toJson(),
-    "fra": fra.toJson(),
-  };
+  Map<String, dynamic> toJson() => {"eng": eng.toJson(), "fra": fra.toJson()};
 }
 
 class Eng {
   String f;
   String m;
 
-  Eng({
-    required this.f,
-    required this.m,
-  });
+  Eng({required this.f, required this.m});
 
   factory Eng.fromRawJson(String str) => Eng.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Eng.fromJson(Map<String, dynamic> json) => Eng(
-    f: json["f"],
-    m: json["m"],
-  );
+  factory Eng.fromJson(Map<String, dynamic> json) =>
+      Eng(f: json["f"], m: json["m"]);
 
-  Map<String, dynamic> toJson() => {
-    "f": f,
-    "m": m,
-  };
+  Map<String, dynamic> toJson() => {"f": f, "m": m};
 }
 
 class Flags {
@@ -321,57 +288,38 @@ class Flags {
   String svg;
   String alt;
 
-  Flags({
-    required this.png,
-    required this.svg,
-    required this.alt,
-  });
+  Flags({required this.png, required this.svg, required this.alt});
 
   factory Flags.fromRawJson(String str) => Flags.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Flags.fromJson(Map<String, dynamic> json) => Flags(
-    png: json["png"],
-    svg: json["svg"],
-    alt: json["alt"],
-  );
+  factory Flags.fromJson(Map<String, dynamic> json) =>
+      Flags(png: json["png"], svg: json["svg"], alt: json["alt"]);
 
-  Map<String, dynamic> toJson() => {
-    "png": png,
-    "svg": svg,
-    "alt": alt,
-  };
+  Map<String, dynamic> toJson() => {"png": png, "svg": svg, "alt": alt};
 }
 
 class Gini {
   double the2018;
 
-  Gini({
-    required this.the2018,
-  });
+  Gini({required this.the2018});
 
   factory Gini.fromRawJson(String str) => Gini.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Gini.fromJson(Map<String, dynamic> json) => Gini(
-    the2018: json["2018"]?.toDouble(),
-  );
+  factory Gini.fromJson(Map<String, dynamic> json) =>
+      Gini(the2018: json["2018"]?.toDouble());
 
-  Map<String, dynamic> toJson() => {
-    "2018": the2018,
-  };
+  Map<String, dynamic> toJson() => {"2018": the2018};
 }
 
 class Idd {
   String root;
   List<String> suffixes;
 
-  Idd({
-    required this.root,
-    required this.suffixes,
-  });
+  Idd({required this.root, required this.suffixes});
 
   factory Idd.fromRawJson(String str) => Idd.fromJson(json.decode(str));
 
@@ -391,31 +339,24 @@ class Idd {
 class Languages {
   String rus;
 
-  Languages({
-    required this.rus,
-  });
+  Languages({required this.rus});
 
-  factory Languages.fromRawJson(String str) => Languages.fromJson(json.decode(str));
+  factory Languages.fromRawJson(String str) =>
+      Languages.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Languages.fromJson(Map<String, dynamic> json) => Languages(
-    rus: json["rus"],
-  );
+  factory Languages.fromJson(Map<String, dynamic> json) =>
+      Languages(rus: json["rus"]);
 
-  Map<String, dynamic> toJson() => {
-    "rus": rus,
-  };
+  Map<String, dynamic> toJson() => {"rus": rus};
 }
 
 class Maps {
   String googleMaps;
   String openStreetMaps;
 
-  Maps({
-    required this.googleMaps,
-    required this.openStreetMaps,
-  });
+  Maps({required this.googleMaps, required this.openStreetMaps});
 
   factory Maps.fromRawJson(String str) => Maps.fromJson(json.decode(str));
 
@@ -463,67 +404,49 @@ class Name {
 class NativeName {
   Translation rus;
 
-  NativeName({
-    required this.rus,
-  });
+  NativeName({required this.rus});
 
-  factory NativeName.fromRawJson(String str) => NativeName.fromJson(json.decode(str));
+  factory NativeName.fromRawJson(String str) =>
+      NativeName.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory NativeName.fromJson(Map<String, dynamic> json) => NativeName(
-    rus: Translation.fromJson(json["rus"]),
-  );
+  factory NativeName.fromJson(Map<String, dynamic> json) =>
+      NativeName(rus: Translation.fromJson(json["rus"]));
 
-  Map<String, dynamic> toJson() => {
-    "rus": rus.toJson(),
-  };
+  Map<String, dynamic> toJson() => {"rus": rus.toJson()};
 }
 
 class Translation {
   String official;
   String common;
 
-  Translation({
-    required this.official,
-    required this.common,
-  });
+  Translation({required this.official, required this.common});
 
-  factory Translation.fromRawJson(String str) => Translation.fromJson(json.decode(str));
+  factory Translation.fromRawJson(String str) =>
+      Translation.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Translation.fromJson(Map<String, dynamic> json) => Translation(
-    official: json["official"],
-    common: json["common"],
-  );
+  factory Translation.fromJson(Map<String, dynamic> json) =>
+      Translation(official: json["official"], common: json["common"]);
 
-  Map<String, dynamic> toJson() => {
-    "official": official,
-    "common": common,
-  };
+  Map<String, dynamic> toJson() => {"official": official, "common": common};
 }
 
 class PostalCode {
   String format;
   String regex;
 
-  PostalCode({
-    required this.format,
-    required this.regex,
-  });
+  PostalCode({required this.format, required this.regex});
 
-  factory PostalCode.fromRawJson(String str) => PostalCode.fromJson(json.decode(str));
+  factory PostalCode.fromRawJson(String str) =>
+      PostalCode.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory PostalCode.fromJson(Map<String, dynamic> json) => PostalCode(
-    format: json["format"],
-    regex: json["regex"],
-  );
+  factory PostalCode.fromJson(Map<String, dynamic> json) =>
+      PostalCode(format: json["format"], regex: json["regex"]);
 
-  Map<String, dynamic> toJson() => {
-    "format": format,
-    "regex": regex,
-  };
+  Map<String, dynamic> toJson() => {"format": format, "regex": regex};
 }
