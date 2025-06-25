@@ -8,23 +8,23 @@ class Nationality {
 
   Nationality({required this.count, required this.name, required this.country});
 
-  factory Nationality.fromRawJson(String str) =>
+  factory Nationality.fromRawJson(final String str) =>
       Nationality.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Nationality.fromJson(Map<String, dynamic> json) => Nationality(
+  factory Nationality.fromJson(final Map<String, dynamic> json) => Nationality(
     count: json['count'],
     name: json['name'],
     country: List<Country>.from(
-      json['country'].map((x) => Country.fromJson(x)),
+      json['country'].map((final x) => Country.fromJson(x)),
     ),
   );
 
   Map<String, dynamic> toJson() => {
     'count': count,
     'name': name,
-    'country': List<dynamic>.from(country.map((x) => x.toJson())),
+    'country': List<dynamic>.from(country.map((final x) => x.toJson())),
   };
 }
 
@@ -34,11 +34,12 @@ class Country {
 
   Country({required this.countryId, required this.probability});
 
-  factory Country.fromRawJson(String str) => Country.fromJson(json.decode(str));
+  factory Country.fromRawJson(final String str) =>
+      Country.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Country.fromJson(Map<String, dynamic> json) => Country(
+  factory Country.fromJson(final Map<String, dynamic> json) => Country(
     countryId: json['country_id'],
     probability: json['probability']?.toDouble(),
   );

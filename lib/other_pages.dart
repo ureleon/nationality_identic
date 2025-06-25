@@ -40,7 +40,7 @@ class _MainPageContentState extends State<MainPageContent> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(
       context,
     ); // тут операнда с размером экрана
@@ -49,7 +49,7 @@ class _MainPageContentState extends State<MainPageContent> {
         SizedBox(height: queryData.size.width * 0.005),
         TextField(
           controller: _controller,
-          onSubmitted: (String inputName) async {
+          onSubmitted: (final String inputName) async {
             setState(() {
               name = inputName;
             });
@@ -63,7 +63,7 @@ class _MainPageContentState extends State<MainPageContent> {
         ),
         FutureBuilder<Nationality>(
           future: fetchNationality(),
-          builder: (context, snapshot) {
+          builder: (final context, final snapshot) {
             if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
               String readyText = '';
               List<Country> snapData = snapshot.data!.country;

@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(
       context,
     ); // тут операнда с размером экрана
