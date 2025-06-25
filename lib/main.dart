@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(final BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(
+    final MediaQueryData queryData = MediaQuery.of(
       context,
     ); // тут операнда с размером экрана
     return MaterialApp(

@@ -41,7 +41,7 @@ class _MainPageContentState extends State<MainPageContent> {
 
   @override
   Widget build(final BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(
+    final MediaQueryData queryData = MediaQuery.of(
       context,
     ); // тут операнда с размером экрана
     return Column(
@@ -66,7 +66,7 @@ class _MainPageContentState extends State<MainPageContent> {
           builder: (final context, final snapshot) {
             if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
               String readyText = '';
-              List<Country> snapData = snapshot.data!.country;
+              final List<Country> snapData = snapshot.data!.country;
               for (int o = 0; o < snapData.length; o++) {
                 readyText +=
                     ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n';
