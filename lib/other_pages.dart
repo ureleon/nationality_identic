@@ -104,9 +104,9 @@ class _MainPageContentState extends State<MainPageContent> {
       } else {
         // If the server did not return a 200 OK response,
         // then throw an exception.
-        throw (responseNat.statusCode);
+        throw Exception(responseNat.statusCode);
       }
     } else if (name == '') {}
-    throw ("nat is goin' to do");
+    throw Exception("nat is goin' to do");
   }
 }
