@@ -1,6 +1,5 @@
 //import 'package:national_identic/main.dart';
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
@@ -100,7 +99,7 @@ class _MainPageContentState extends State<MainPageContent> {
         Uri.parse('https://api.nationalize.io/?name=$name'),
       );
       if (responseNat.statusCode >= 200 && responseNat.statusCode < 300) {
-        return Nationality.fromJson(jsonDecode(responseNat.body));
+        return Nationality.fromRawJson(responseNat.body);
         //throw Exception(response.statusCode);
       } else {
         // If the server did not return a 200 OK response,
