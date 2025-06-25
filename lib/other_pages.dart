@@ -64,17 +64,18 @@ class _MainPageContentState extends State<MainPageContent> {
                 final AsyncSnapshot<Nationality> snapshot,
               ) {
                 if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
-                  String readyText = '';
+                  final StringBuffer readyTextBuffer = StringBuffer();
                   final List<Country> snapData = snapshot.data!.country;
                   for (int o = 0; o < snapData.length; o++) {
-                    readyText +=
-                        ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n';
+                    readyTextBuffer.write(
+                      ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
+                    );
                   }
                   return Text(
                     style: TextStyle(
                       fontSize: 14 + queryData.size.height * 0.005,
                     ),
-                    readyText,
+                    readyTextBuffer.toString(),
                   );
                 } else if (snapshot.hasError && name != '' ||
                     name != '' && snapshot.data!.country.isEmpty) {
