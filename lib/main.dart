@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
-          leading: DrawerButton(),
+          leading: const DrawerButton(),
           title: const Text('National identic!'),
         ),
         body: Container(
@@ -37,20 +37,20 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               const SizedBox(height: 30),
-              Text(
+              const Text(
                 'You can type interesting name on any language,'
                 ' BUT working more stable this version of program with English Language. In future here may be settings and auto-translation, but not now',
               ),
-              Spacer(),
-              Text(
+              const Spacer(),
+              const Text(
                 'All percents is only probability of naming people in some countries',
               ),
               Container(height: 10),
-              Text(
+              const Text(
                 'this app developed not for a sale, here used free API of side developers',
                 style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),

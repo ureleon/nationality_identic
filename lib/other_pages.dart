@@ -82,7 +82,7 @@ class _MainPageContentState extends State<MainPageContent> {
             while (name == '') {
               return const Spacer();
             }
-            return Spacer();
+            return const Spacer();
           },
         ),
       ],
