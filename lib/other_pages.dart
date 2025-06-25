@@ -26,10 +26,8 @@ class _MainPageContentState extends State<MainPageContent> {
   void initState() {
     super.initState();
     super.didChangeDependencies();
+    
     _controller = TextEditingController();
-    name;
-    natCodes;
-    natProbs;
     parser = EmojiParser();
   }
 
