@@ -54,7 +54,6 @@ class _MainPageContentState extends State<MainPageContent> {
               name = inputName;
             });
           },
-          obscureText: false,
           keyboardType: TextInputType.name,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
