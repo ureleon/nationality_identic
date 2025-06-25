@@ -58,7 +58,7 @@ class _MainPageContentState extends State<MainPageContent> {
           keyboardType: TextInputType.name,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            labelText: "Name",
+            labelText: 'Name',
           ),
         ),
         FutureBuilder<Nationality>(

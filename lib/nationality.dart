@@ -14,17 +14,17 @@ class Nationality {
   String toRawJson() => json.encode(toJson());
 
   factory Nationality.fromJson(Map<String, dynamic> json) => Nationality(
-    count: json["count"],
-    name: json["name"],
+    count: json['count'],
+    name: json['name'],
     country: List<Country>.from(
-      json["country"].map((x) => Country.fromJson(x)),
+      json['country'].map((x) => Country.fromJson(x)),
     ),
   );
 
   Map<String, dynamic> toJson() => {
-    "count": count,
-    "name": name,
-    "country": List<dynamic>.from(country.map((x) => x.toJson())),
+    'count': count,
+    'name': name,
+    'country': List<dynamic>.from(country.map((x) => x.toJson())),
   };
 }
 
@@ -39,12 +39,12 @@ class Country {
   String toRawJson() => json.encode(toJson());
 
   factory Country.fromJson(Map<String, dynamic> json) => Country(
-    countryId: json["country_id"],
-    probability: json["probability"]?.toDouble(),
+    countryId: json['country_id'],
+    probability: json['probability']?.toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
-    "country_id": countryId,
-    "probability": probability,
+    'country_id': countryId,
+    'probability': probability,
   };
 }

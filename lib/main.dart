@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
               ),
               Spacer(),
               Text(
-                "All percents is only probability of naming people in some countries",
+                'All percents is only probability of naming people in some countries',
               ),
               Container(height: 10),
               Text(
