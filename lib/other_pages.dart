@@ -1,4 +1,3 @@
-//import 'package:national_identic/main.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
