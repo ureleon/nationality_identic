@@ -1,5 +1,3 @@
-//import 'dart:html';
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:national_identic/other_pages.dart';
 
@@ -16,8 +14,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(
+  Widget build(final BuildContext context) {
+    final MediaQueryData queryData = MediaQuery.of(
       context,
     ); // тут операнда с размером экрана
     return MaterialApp(
@@ -26,7 +24,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
-          leading: DrawerButton(),
+          leading: const DrawerButton(),
           title: const Text('National identic!'),
         ),
         body: Container(
@@ -35,22 +33,22 @@ class _MyAppState extends State<MyApp> {
         ),
         drawer: Drawer(
           child: Column(
-            children: [
+            children: <Widget>[
               const SizedBox(height: 30),
-              Text(
+              const Text(
                 'You can type interesting name on any language,'
                 ' BUT working more stable this version of program with English Language. In future here may be settings and auto-translation, but not now',
               ),
-              Spacer(),
-              Text(
-                "All percents is only probability of naming people in some countries",
+              const Spacer(),
+              const Text(
+                'All percents is only probability of naming people in some countries',
               ),
               Container(height: 10),
-              Text(
+              const Text(
                 'this app developed not for a sale, here used free API of side developers',
                 style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),
