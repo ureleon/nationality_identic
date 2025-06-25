@@ -49,7 +49,7 @@ class _MainPageContentState extends State<MainPageContent> {
         SizedBox(height: queryData.size.width * 0.005),
         TextField(
           controller: _controller,
-          onSubmitted: (final String inputName) async {
+          onSubmitted: (final String inputName) {
             setState(() {
               name = inputName;
             });
