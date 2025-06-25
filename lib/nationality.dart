@@ -21,10 +21,10 @@ class Nationality {
     ),
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
     'count': count,
     'name': name,
-    'country': List<dynamic>.from(country.map((final x) => x.toJson())),
+    'country': List<dynamic>.from(country.map((final Country x) => x.toJson())),
   };
 }
 
@@ -44,7 +44,7 @@ class Country {
     probability: json['probability']?.toDouble(),
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
     'country_id': countryId,
     'probability': probability,
   };

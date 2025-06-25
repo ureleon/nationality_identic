@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         ),
         drawer: Drawer(
           child: Column(
-            children: [
+            children: <Widget>[
               const SizedBox(height: 30),
               const Text(
                 'You can type interesting name on any language,'

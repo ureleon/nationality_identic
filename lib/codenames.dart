@@ -121,9 +121,9 @@ class CodeNames {
     postalCode: PostalCode.fromJson(json['postalCode']),
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
     'name': name.toJson(),
-    'tld': List<dynamic>.from(tld.map((final x) => x)),
+    'tld': List<dynamic>.from(tld.map((final String x) => x)),
     'cca2': cca2,
     'ccn3': ccn3,
     'cca3': cca3,
@@ -133,17 +133,17 @@ class CodeNames {
     'unMember': unMember,
     'currencies': currencies.toJson(),
     'idd': idd.toJson(),
-    'capital': List<dynamic>.from(capital.map((final x) => x)),
-    'altSpellings': List<dynamic>.from(altSpellings.map((final x) => x)),
+    'capital': List<dynamic>.from(capital.map((final String x) => x)),
+    'altSpellings': List<dynamic>.from(altSpellings.map((final String x) => x)),
     'region': region,
     'subregion': subregion,
     'languages': languages.toJson(),
     'translations': Map.from(
       translations,
     ).map((final k, final v) => MapEntry<String, dynamic>(k, v.toJson())),
-    'latlng': List<dynamic>.from(latlng.map((final x) => x)),
+    'latlng': List<dynamic>.from(latlng.map((final int x) => x)),
     'landlocked': landlocked,
-    'borders': List<dynamic>.from(borders.map((final x) => x)),
+    'borders': List<dynamic>.from(borders.map((final String x) => x)),
     'area': area,
     'demonyms': demonyms.toJson(),
     'flag': flag,
@@ -152,8 +152,8 @@ class CodeNames {
     'gini': gini.toJson(),
     'fifa': fifa,
     'car': car.toJson(),
-    'timezones': List<dynamic>.from(timezones.map((final x) => x)),
-    'continents': List<dynamic>.from(continents.map((final x) => x)),
+    'timezones': List<dynamic>.from(timezones.map((final String x) => x)),
+    'continents': List<dynamic>.from(continents.map((final String x) => x)),
     'flags': flags.toJson(),
     'coatOfArms': coatOfArms.toJson(),
     'startOfWeek': startOfWeek,
@@ -176,8 +176,8 @@ class CapitalInfo {
     latlng: List<double>.from(json['latlng'].map((final x) => x?.toDouble())),
   );
 
-  Map<String, dynamic> toJson() => {
-    'latlng': List<dynamic>.from(latlng.map((final x) => x)),
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'latlng': List<dynamic>.from(latlng.map((final double x) => x)),
   };
 }
 
@@ -196,8 +196,8 @@ class Car {
     side: json['side'],
   );
 
-  Map<String, dynamic> toJson() => {
-    'signs': List<dynamic>.from(signs.map((final x) => x)),
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'signs': List<dynamic>.from(signs.map((final String x) => x)),
     'side': side,
   };
 }
@@ -216,7 +216,7 @@ class CoatOfArms {
   factory CoatOfArms.fromJson(final Map<String, dynamic> json) =>
       CoatOfArms(png: json['png'], svg: json['svg']);
 
-  Map<String, dynamic> toJson() => {'png': png, 'svg': svg};
+  Map<String, dynamic> toJson() => <String, dynamic>{'png': png, 'svg': svg};
 }
 
 class Currencies {
@@ -232,7 +232,7 @@ class Currencies {
   factory Currencies.fromJson(final Map<String, dynamic> json) =>
       Currencies(rub: Rub.fromJson(json['RUB']));
 
-  Map<String, dynamic> toJson() => {'RUB': rub.toJson()};
+  Map<String, dynamic> toJson() => <String, dynamic>{'RUB': rub.toJson()};
 }
 
 class Rub {
@@ -248,7 +248,10 @@ class Rub {
   factory Rub.fromJson(final Map<String, dynamic> json) =>
       Rub(name: json['name'], symbol: json['symbol']);
 
-  Map<String, dynamic> toJson() => {'name': name, 'symbol': symbol};
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'name': name,
+    'symbol': symbol,
+  };
 }
 
 class Demonyms {
@@ -265,7 +268,10 @@ class Demonyms {
   factory Demonyms.fromJson(final Map<String, dynamic> json) =>
       Demonyms(eng: Eng.fromJson(json['eng']), fra: Eng.fromJson(json['fra']));
 
-  Map<String, dynamic> toJson() => {'eng': eng.toJson(), 'fra': fra.toJson()};
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'eng': eng.toJson(),
+    'fra': fra.toJson(),
+  };
 }
 
 class Eng {
@@ -281,7 +287,7 @@ class Eng {
   factory Eng.fromJson(final Map<String, dynamic> json) =>
       Eng(f: json['f'], m: json['m']);
 
-  Map<String, dynamic> toJson() => {'f': f, 'm': m};
+  Map<String, dynamic> toJson() => <String, dynamic>{'f': f, 'm': m};
 }
 
 class Flags {
@@ -299,7 +305,11 @@ class Flags {
   factory Flags.fromJson(final Map<String, dynamic> json) =>
       Flags(png: json['png'], svg: json['svg'], alt: json['alt']);
 
-  Map<String, dynamic> toJson() => {'png': png, 'svg': svg, 'alt': alt};
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'png': png,
+    'svg': svg,
+    'alt': alt,
+  };
 }
 
 class Gini {
@@ -314,7 +324,7 @@ class Gini {
   factory Gini.fromJson(final Map<String, dynamic> json) =>
       Gini(the2018: json['2018']?.toDouble());
 
-  Map<String, dynamic> toJson() => {'2018': the2018};
+  Map<String, dynamic> toJson() => <String, dynamic>{'2018': the2018};
 }
 
 class Idd {
@@ -332,9 +342,9 @@ class Idd {
     suffixes: List<String>.from(json['suffixes'].map((final x) => x)),
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
     'root': root,
-    'suffixes': List<dynamic>.from(suffixes.map((final x) => x)),
+    'suffixes': List<dynamic>.from(suffixes.map((final String x) => x)),
   };
 }
 
@@ -351,7 +361,7 @@ class Languages {
   factory Languages.fromJson(final Map<String, dynamic> json) =>
       Languages(rus: json['rus']);
 
-  Map<String, dynamic> toJson() => {'rus': rus};
+  Map<String, dynamic> toJson() => <String, dynamic>{'rus': rus};
 }
 
 class Maps {
@@ -369,7 +379,7 @@ class Maps {
     openStreetMaps: json['openStreetMaps'],
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
     'googleMaps': googleMaps,
     'openStreetMaps': openStreetMaps,
   };
@@ -396,7 +406,7 @@ class Name {
     nativeName: NativeName.fromJson(json['nativeName']),
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String, dynamic>{
     'common': common,
     'official': official,
     'nativeName': nativeName.toJson(),
@@ -416,7 +426,7 @@ class NativeName {
   factory NativeName.fromJson(final Map<String, dynamic> json) =>
       NativeName(rus: Translation.fromJson(json['rus']));
 
-  Map<String, dynamic> toJson() => {'rus': rus.toJson()};
+  Map<String, dynamic> toJson() => <String, dynamic>{'rus': rus.toJson()};
 }
 
 class Translation {
@@ -433,7 +443,10 @@ class Translation {
   factory Translation.fromJson(final Map<String, dynamic> json) =>
       Translation(official: json['official'], common: json['common']);
 
-  Map<String, dynamic> toJson() => {'official': official, 'common': common};
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'official': official,
+    'common': common,
+  };
 }
 
 class PostalCode {
@@ -450,5 +463,8 @@ class PostalCode {
   factory PostalCode.fromJson(final Map<String, dynamic> json) =>
       PostalCode(format: json['format'], regex: json['regex']);
 
-  Map<String, dynamic> toJson() => {'format': format, 'regex': regex};
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'format': format,
+    'regex': regex,
+  };
 }

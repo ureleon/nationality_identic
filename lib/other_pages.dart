@@ -17,16 +17,16 @@ class MainPageContent extends StatefulWidget {
 class _MainPageContentState extends State<MainPageContent> {
   late TextEditingController _controller;
   late EmojiParser parser;
-  var name = '';
-  List<String> natCodes = [];
-  List<num> natProbs = [];
-  List<String> flagList = [];
+  String name = '';
+  List<String> natCodes = <String>[];
+  List<num> natProbs = <num>[];
+  List<String> flagList = <String>[];
 
   @override
   void initState() {
     super.initState();
     super.didChangeDependencies();
-    
+
     _controller = TextEditingController();
     parser = EmojiParser();
   }
@@ -43,7 +43,7 @@ class _MainPageContentState extends State<MainPageContent> {
       context,
     ); // тут операнда с размером экрана
     return Column(
-      children: [
+      children: <Widget>[
         SizedBox(height: queryData.size.width * 0.005),
         TextField(
           controller: _controller,
@@ -60,27 +60,35 @@ class _MainPageContentState extends State<MainPageContent> {
         ),
         FutureBuilder<Nationality>(
           future: fetchNationality(),
-          builder: (final context, final snapshot) {
-            if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
-              String readyText = '';
-              final List<Country> snapData = snapshot.data!.country;
-              for (int o = 0; o < snapData.length; o++) {
-                readyText +=
-                    ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n';
-              }
-              return Text(
-                style: TextStyle(fontSize: 14 + queryData.size.height * 0.005),
-                readyText,
-              );
-            } else if (snapshot.hasError && name != '' ||
-                name != '' && snapshot.data!.country.isEmpty) {
-              return Text("I don't understand this name $name, Try another");
-            }
-            while (name == '') {
-              return const Spacer();
-            }
-            return const Spacer();
-          },
+          builder:
+              (
+                final BuildContext context,
+                final AsyncSnapshot<Nationality> snapshot,
+              ) {
+                if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
+                  String readyText = '';
+                  final List<Country> snapData = snapshot.data!.country;
+                  for (int o = 0; o < snapData.length; o++) {
+                    readyText +=
+                        ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n';
+                  }
+                  return Text(
+                    style: TextStyle(
+                      fontSize: 14 + queryData.size.height * 0.005,
+                    ),
+                    readyText,
+                  );
+                } else if (snapshot.hasError && name != '' ||
+                    name != '' && snapshot.data!.country.isEmpty) {
+                  return Text(
+                    "I don't understand this name $name, Try another",
+                  );
+                }
+                while (name == '') {
+                  return const Spacer();
+                }
+                return const Spacer();
+              },
         ),
       ],
     );
@@ -88,7 +96,7 @@ class _MainPageContentState extends State<MainPageContent> {
 
   Future<Nationality> fetchNationality() async {
     if (name != '') {
-      final responseNat = await http.get(
+      final http.Response responseNat = await http.get(
         Uri.parse('https://api.nationalize.io/?name=$name'),
       );
       if (responseNat.statusCode >= 200 && responseNat.statusCode < 300) {
