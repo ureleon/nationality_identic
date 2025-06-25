@@ -1,3 +1,5 @@
+// ignore_for_file: sort_constructors_first, inference_failure_on_untyped_parameter, inference_failure_on_instance_creation, avoid_dynamic_calls, always_specify_types, argument_type_not_assignable TODO(vanyasem): Replace with JsonSerializable
+
 import 'dart:convert';
 
 class CodeNames {
