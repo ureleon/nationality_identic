@@ -57,34 +57,33 @@ class _MainPageContentState extends State<MainPageContent> {
           future: fetchNationality(),
           builder:
               (
-              final BuildContext context,
-              final AsyncSnapshot<Nationality> snapshot,
+                final BuildContext context,
+                final AsyncSnapshot<Nationality> snapshot,
               ) {
-            if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
-              final StringBuffer readyTextBuffer = StringBuffer();
-              final List<Country> snapData = snapshot.data!.country;
-              for (int o = 0; o < snapData.length; o++) {
-                readyTextBuffer.write(
-                  ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
-                );
-              }
-              return Text(
-                style: TextStyle(
-                  fontSize: 14 + queryData.size.height * 0.005,
-                ),
-                readyTextBuffer.toString(),
-              );
-            }
-             if (name != '' && snapshot.hasData) {
-              return Text(
-                'I do not understand this name $name, Please, try another',
-              );
-            }
-            else if(name.isEmpty) {
-              return const Spacer();
-            }
-            return const CircularProgressIndicator();
-          },
+                if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
+                  final StringBuffer readyTextBuffer = StringBuffer();
+                  final List<Country> snapData = snapshot.data!.country;
+                  for (int o = 0; o < snapData.length; o++) {
+                    readyTextBuffer.write(
+                      ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
+                    );
+                  }
+                  return Text(
+                    style: TextStyle(
+                      fontSize: 14 + queryData.size.height * 0.005,
+                    ),
+                    readyTextBuffer.toString(),
+                  );
+                }
+                if (name != '' && snapshot.hasData) {
+                  return Text(
+                    'I do not understand this name $name, Please, try another',
+                  );
+                } else if (name.isEmpty) {
+                  return const Spacer();
+                }
+                return const CircularProgressIndicator();
+              },
         ),
       ],
     );
