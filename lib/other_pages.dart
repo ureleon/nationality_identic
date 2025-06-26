@@ -16,14 +16,10 @@ class _MainPageContentState extends State<MainPageContent> {
   late TextEditingController _controller;
   late EmojiParser parser;
   String name = '';
-  List<String> natCodes = <String>[];
-  List<num> natProbs = <num>[];
-  List<String> flagList = <String>[];
 
   @override
   void initState() {
     super.initState();
-    super.didChangeDependencies();
 
     _controller = TextEditingController();
     parser = EmojiParser();
@@ -56,38 +52,39 @@ class _MainPageContentState extends State<MainPageContent> {
             labelText: 'Name',
           ),
         ),
+
         FutureBuilder<Nationality>(
           future: fetchNationality(),
           builder:
               (
-                final BuildContext context,
-                final AsyncSnapshot<Nationality> snapshot,
+              final BuildContext context,
+              final AsyncSnapshot<Nationality> snapshot,
               ) {
-                if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
-                  final StringBuffer readyTextBuffer = StringBuffer();
-                  final List<Country> snapData = snapshot.data!.country;
-                  for (int o = 0; o < snapData.length; o++) {
-                    readyTextBuffer.write(
-                      ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
-                    );
-                  }
-                  return Text(
-                    style: TextStyle(
-                      fontSize: 14 + queryData.size.height * 0.005,
-                    ),
-                    readyTextBuffer.toString(),
-                  );
-                } else if (snapshot.hasError && name != '' ||
-                    name != '' && snapshot.data!.country.isEmpty) {
-                  return Text(
-                    "I don't understand this name $name, Try another",
-                  );
-                }
-                while (name == '') {
-                  return const Spacer();
-                }
-                return const Spacer();
-              },
+            if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
+              final StringBuffer readyTextBuffer = StringBuffer();
+              final List<Country> snapData = snapshot.data!.country;
+              for (int o = 0; o < snapData.length; o++) {
+                readyTextBuffer.write(
+                  ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
+                );
+              }
+              return Text(
+                style: TextStyle(
+                  fontSize: 14 + queryData.size.height * 0.005,
+                ),
+                readyTextBuffer.toString(),
+              );
+            }
+             if (name != '' && snapshot.hasData) {
+              return Text(
+                'I do not understand this name $name, Please, try another',
+              );
+            }
+            else if(name.isEmpty) {
+              return const Spacer();
+            }
+            return const CircularProgressIndicator();
+          },
         ),
       ],
     );
@@ -107,6 +104,6 @@ class _MainPageContentState extends State<MainPageContent> {
         throw Exception(responseNat.statusCode);
       }
     } else if (name == '') {}
-    throw Exception("nat is goin' to do");
+    throw Exception('nat is going to do');
   }
 }
