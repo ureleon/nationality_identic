@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:http/http.dart' as http;
+import 'package:national_identic/cards_example.dart';
 import 'package:national_identic/nationality.dart';
 
 class NatOutput extends StatefulWidget {
@@ -24,7 +25,7 @@ class _NatOutputState extends State<NatOutput> {
 
   @override
   Widget build(final BuildContext context) {
-    final MediaQueryData queryData = MediaQuery.of(context);
+    //final MediaQueryData queryData = MediaQuery.of(context);
     if (widget.firstName.isNotEmpty) {
       return FutureBuilder<Nationality>(
         future: fetchNationality(),
@@ -34,28 +35,25 @@ class _NatOutputState extends State<NatOutput> {
               final AsyncSnapshot<Nationality> snapshot,
             ) {
               if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
-                final StringBuffer readyTextBuffer = StringBuffer();
                 final List<Country> snapData = snapshot.data!.country;
+                final List<Widget> snapStrokes = <Widget>[];
                 for (int o = 0; o < snapData.length; o++) {
-                  readyTextBuffer.write(
-                    ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
+                  snapStrokes.add(
+                    cardsExample(
+                      titleText: '',
+                      subTitleText:
+                          ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
+                    ),
                   );
                 }
-                return Text(
-                  style: TextStyle(
-                    fontSize: 14 + queryData.size.height * 0.005,
-                  ),
-                  readyTextBuffer.toString(),
-                );
+                return ListBody(children: snapStrokes);
               }
-              if (widget.firstName != '' && snapshot.hasData) {
+              if (widget.firstName != '' && snapshot.hasError) {
                 return Text(
                   'I do not understand this name ${widget.firstName}, Please, try another',
                 );
-              } else if (widget.firstName.isEmpty) {
-                return const Spacer();
               }
-              return const CircularProgressIndicator();
+              return const CircularProgressIndicator(color: Colors.redAccent);
             },
       );
     }

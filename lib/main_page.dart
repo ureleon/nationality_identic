@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:national_identic/nationality_future_nandler.dart';
+import 'package:national_identic/cards_example.dart';
+import 'package:national_identic/nationality_future_handler.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
-
+  const MainPage({super.key, required this.updateTheme});
+  final void Function(int) updateTheme;
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -11,12 +12,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late TextEditingController _controller;
   String name = '';
+  late bool counter;
 
   @override
   void initState() {
     super.initState();
-
     _controller = TextEditingController();
+    counter = false;
   }
 
   @override
@@ -27,64 +29,66 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(final BuildContext context) {
-    final MediaQueryData queryData = MediaQuery.of(
+    /*final MediaQueryData queryData = MediaQuery.of(
       context,
-    ); // тут операнда с размером экрана
+    ); // here is var with screen size */
     return PopScope(
       canPop: false,
       child: MaterialApp(
+        theme: Theme.of(context),
+        darkTheme: Theme.of(context),
         title: 'National Identic',
         home: Scaffold(
           appBar: AppBar(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.blue,
+            backgroundColor: const Color(0xAAAA1111),
+            shadowColor: Colors.redAccent.shade200,
             leading: const DrawerButton(),
             title: const Text('National identic!'),
           ),
-          body: Container(
-            padding: EdgeInsets.all(queryData.size.width * 0.05),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: queryData.size.width * 0.005),
-                TextField(
-                  controller: _controller,
-                  onSubmitted: (final String inputName) {
-                    setState(() {
-                      name = inputName;
-                    });
-                  },
-                  keyboardType: TextInputType.name,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Name',
-                  ),
+          body: Column(
+            children: <Widget>[
+              const SizedBox(height: 10),
+              TextField(
+                controller: _controller,
+                onSubmitted: (final String inputName) {
+                  setState(() {
+                    name = inputName;
+                  });
+                },
+                keyboardType: TextInputType.name,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Name',
                 ),
-                NatOutput(firstName: name),
-              ],
-            ),
+              ),
+              const SizedBox(height: 10),
+              rightStart(assertation: name),
+            ],
           ),
           drawer: Drawer(
             child: Column(
               children: <Widget>[
-                const SizedBox(height: 30),
-                const Text(
-                  'You can type interesting name on any language,'
-                  ' BUT working more stable this version of program with English Language. In future here may be settings and auto-translation, but not now',
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/settings');
-                  },
-                  child: const Text('Settings'),
-                ),
                 const Spacer(),
-                const Text(
-                  'All percents is only probability of naming people in some countries',
+                //Here is card wrapped into gesture detector for collapsing full text of description
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      counter = !counter;
+                    });
+                  },
+                  child: cardsExample(
+                    titleText: 'Description',
+                    subTitleText: subText(isOpen: counter),
+                  ),
                 ),
-                Container(height: 10),
-                const Text(
-                  'this app developed not for a sale, here used free API of side developers',
-                  style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
+                //Here is card route to settings page like a button, but else
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/settings');
+                    // TODO(uleon): Implement drawer from head of three for normal navigation
+                  },
+                  child: cardsExample(titleText: 'Settings', subTitleText: ''),
                 ),
                 const Spacer(),
               ],
@@ -93,5 +97,25 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+}
+
+String subText({final bool isOpen = false}) {
+  //this small functions need's to show and hide full text
+  if (isOpen) {
+    return 'You can type interesting name on any language,'
+        ' BUT working more stable this version of program with English Language.'
+        ' In future here may be settings and auto-translation,'
+        ' but not now All percents is only probability of naming people in some countries '
+        'this app developed not for a sale, here used free API of side developers';
+  }
+  return '';
+}
+
+Widget rightStart({required final String assertation}) {
+  if (assertation.isNotEmpty) {
+    return NatOutput(firstName: assertation);
+  } else {
+    return const Spacer();
   }
 }
