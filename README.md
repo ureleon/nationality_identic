@@ -1,3 +1,3 @@
 National identic App
 =======
-This app is developed primarily for self use and demonstration of abilities. App may have some problems. If you find some, i'll be ready to solve if i can
+This is **base** version of National Identic app. __Needs some improvements__, but __for know__ gained **base** normal work. **__Not for release version.__**
