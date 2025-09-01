@@ -1,58 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:national_identic/other_pages.dart';
+import 'package:national_identic/main_page.dart';
+import 'package:national_identic/settings_page.dart';
+import 'package:national_identic/theme_map.dart' as theme_map;
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final ThemeMode themeModeFromCache =
+      theme_map.themeMap[prefs.getInt('settings') ?? 1]!;
+  runApp(MyApp(themeMode: themeModeFromCache));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.themeMode});
+  final ThemeMode themeMode;
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  ThemeMode _themeMode = ThemeMode.system;
+  @override
+  void initState() {
+    super.initState();
+    _loadThemeMode();
+  }
+
+  Future<void> _loadThemeMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final ThemeMode themeMode =
+        theme_map.themeMap[prefs.getInt('settings') ?? 1]!;
+    setState(() {
+      _themeMode = themeMode;
+    });
+  }
+
+  Future<void> _updateThemeMode(final int mode) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('settings', mode);
+    setState(() => _themeMode = theme_map.themeMap[mode]!);
+  }
+
   @override
   Widget build(final BuildContext context) {
-    final MediaQueryData queryData = MediaQuery.of(
-      context,
-    ); // тут операнда с размером экрана
+    //  didChangeDependencies();
+    //final MediaQueryData queryData = MediaQuery.of(context); // тут операнда с размером экрана
     return MaterialApp(
-      title: 'National Identic',
-      home: Scaffold(
-        appBar: AppBar(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
-          leading: const DrawerButton(),
-          title: const Text('National identic!'),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(queryData.size.width * 0.05),
-          child: const MainPageContent(),
-        ),
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 30),
-              const Text(
-                'You can type interesting name on any language,'
-                ' BUT working more stable this version of program with English Language. In future here may be settings and auto-translation, but not now',
-              ),
-              const Spacer(),
-              const Text(
-                'All percents is only probability of naming people in some countries',
-              ),
-              Container(height: 10),
-              const Text(
-                'this app developed not for a sale, here used free API of side developers',
-                style: TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
-              ),
-              const Spacer(),
-            ],
-          ),
-        ),
-      ),
+      title: 'Nationalic',
+      themeMode: _themeMode,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      routes: <String, WidgetBuilder>{
+        '/home': (final BuildContext context) =>
+            MainPage(updateTheme: _updateThemeMode),
+        '/settings': (final BuildContext context) =>
+            SettingsPage(updateTheme: _updateThemeMode),
+      },
+      initialRoute: '/home',
+      restorationScopeId: '/home',
     );
+    // TODO(uleon): reconstruct route map for more performance and reduce problems with navigation. Right now pop is broking all
   }
 }
