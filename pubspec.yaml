@@ -10,6 +10,9 @@ environment:
   sdk: '>=3.8.0 <4.0.0'
   flutter: '>=3.32.0 <4.0.0'
 
+dev_dependencies:
+  flutter_launcher_icons: ^0.14.4
+
 dependencies:
   flutter:
     sdk: flutter
@@ -19,14 +22,19 @@ dependencies:
   flutter_emoji: ^2.5.1
 
   http: ^1.4.0
-#dev_dependencies:
 
 flutter:
-
   uses-material-design: true
+  assets:
+    - assets/icons/AppIcons/smooth/
+    - assets/icons/AppIcons/clear/
+flutter_icons:
+ android: true
+ ios: true
+ image_path: "assets/icons/AppIcons/smooth/icon_rb@full.png"
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  #assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,10 +1,8 @@
 // TODO(uleon): improve architecture, repair logic. Need more regular methods if i call this right
-
 import 'dart:async';
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:national_identic/theme_map.dart' as theme_map;
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/util/legacy_to_async_migration_util.dart';
 
@@ -129,7 +127,6 @@ class _PreferencesStateState extends State<PreferencesState> {
                       },
                 ),
               ),
-              Text('Current Theme is ${theme_map.themeMap[1]}'),
             ],
           ),
         ),
