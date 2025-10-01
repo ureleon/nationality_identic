@@ -34,9 +34,10 @@ class _NatOutputState extends State<NatOutput> {
               final BuildContext context,
               final AsyncSnapshot<Nationality> snapshot,
             ) {
-              if (snapshot.hasData && snapshot.data!.country.isNotEmpty) {
+              if (snapshot.hasData && widget.firstName.isNotEmpty) {
                 final List<Country> snapData = snapshot.data!.country;
                 final List<Widget> snapStrokes = <Widget>[];
+
                 for (int o = 0; o < snapData.length; o++) {
                   snapStrokes.add(
                     cardsExample(
@@ -46,12 +47,14 @@ class _NatOutputState extends State<NatOutput> {
                     ),
                   );
                 }
-                return ListBody(children: snapStrokes);
-              }
-              if (widget.firstName != '' && snapshot.hasError) {
-                return Text(
-                  'I do not understand this name ${widget.firstName}, Please, try another',
+                return Column(children:
+                <Widget>[Text('Name ${widget.firstName} is referenced ${snapshot.data!.count} times in our service'),
+                    ListBody(children: snapStrokes),
+                ]
                 );
+              }
+              else if(snapshot.hasError){
+                throw Exception('snapshot has error: ${snapshot.error}');
               }
               return const CircularProgressIndicator(color: Colors.redAccent);
             },
