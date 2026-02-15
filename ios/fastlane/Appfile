@@ -1,0 +1,4 @@
+app_identifier("national.identic.app")        # Bundle identifier вашего приложения
+apple_id("leonidarkadievi4@gmail.com")        # Ваш Apple ID для Developer Portal
+itc_team_id("")                 	      # App Store Connect Team ID
+team_id("")                                   # Developer Portal Team ID
