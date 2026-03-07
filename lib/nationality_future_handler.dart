@@ -47,13 +47,15 @@ class _NatOutputState extends State<NatOutput> {
                     ),
                   );
                 }
-                return Column(children:
-                <Widget>[Text('Name ${widget.firstName} is referenced ${snapshot.data!.count} times in our service'),
+                return Column(
+                  children: <Widget>[
+                    Text(
+                      'Name ${widget.firstName} is referenced ${snapshot.data!.count} times in our service',
+                    ),
                     ListBody(children: snapStrokes),
-                ]
+                  ],
                 );
-              }
-              else if(snapshot.hasError){
+              } else if (snapshot.hasError) {
                 throw Exception('snapshot has error: ${snapshot.error}');
               }
               return const CircularProgressIndicator(color: Colors.redAccent);
