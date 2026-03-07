@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:http/http.dart' as http;
 import 'package:national_identic/cards_example.dart';
-import 'package:national_identic/nationality.dart';
+import 'package:national_identic/entity/country.dart';
+import 'package:national_identic/entity/nationality.dart';
 
 class NatOutput extends StatefulWidget {
   const NatOutput({super.key, required this.firstName});
