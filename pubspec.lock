@@ -89,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  fl_common_lint:
+    dependency: "direct dev"
+    description:
+      name: fl_common_lint
+      sha256: fdd78462f09ac71f55669c6871dd2909b7682df2f5a8daf65d7bb2274e3b2fa9
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.10.0"
   flutter:
     dependency: "direct main"
     description: flutter
