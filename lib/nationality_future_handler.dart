@@ -8,6 +8,7 @@ import 'package:national_identic/nationality.dart';
 
 class NatOutput extends StatefulWidget {
   const NatOutput({super.key, required this.firstName});
+  
   final String firstName;
 
   @override
@@ -25,7 +26,6 @@ class _NatOutputState extends State<NatOutput> {
 
   @override
   Widget build(final BuildContext context) {
-    //final MediaQueryData queryData = MediaQuery.of(context);
     if (widget.firstName.isNotEmpty) {
       return FutureBuilder<Nationality>(
         future: fetchNationality(),
@@ -52,7 +52,7 @@ class _NatOutputState extends State<NatOutput> {
                     Text(
                       'Name ${widget.firstName} is referenced ${snapshot.data!.count} times in our service',
                     ),
-                    ListBody(children: snapStrokes),
+                    Column(children: snapStrokes),
                   ],
                 );
               } else if (snapshot.hasError) {

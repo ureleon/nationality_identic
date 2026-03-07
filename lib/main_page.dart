@@ -55,7 +55,11 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           const SizedBox(height: 10),
-          _rightStart(assertation: name),
+          Expanded(
+            child: SingleChildScrollView(
+              child: _rightStart(assertation: name),
+            ),
+          ),
         ],
       ),
       drawer: Drawer(
