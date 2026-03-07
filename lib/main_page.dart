@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           const SizedBox(height: 10),
-          rightStart(assertation: name),
+          _rightStart(assertation: name),
         ],
       ),
       drawer: Drawer(
@@ -70,7 +70,7 @@ class _MainPageState extends State<MainPage> {
               },
               child: cardsExample(
                 titleText: 'Description',
-                subTitleText: subText(isOpen: counter),
+                subTitleText: _subText(isOpen: counter),
               ),
             ),
             GestureDetector(
@@ -87,7 +87,7 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-String subText({final bool isOpen = false}) {
+String _subText({final bool isOpen = false}) {
   //this small functions need's to show and hide full text
   if (isOpen) {
     return 'You can type interesting name on any language,'
@@ -99,7 +99,7 @@ String subText({final bool isOpen = false}) {
   return '';
 }
 
-Widget rightStart({required final String assertation}) {
+Widget _rightStart({required final String assertation}) {
   if (assertation.isNotEmpty) {
     return NatOutput(firstName: assertation);
   } else {

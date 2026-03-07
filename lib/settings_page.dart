@@ -103,18 +103,18 @@ class _PreferencesStateState extends State<PreferencesState> {
                         } else {
                           return Column(
                             children: <Widget>[
-                              DropdownMenu<ModeLabel>(
+                              DropdownMenu<_ModeLabel>(
                                 enableSearch: false,
                                 requestFocusOnTap: false,
                                 leadingIcon: const Icon(
                                   Icons.accessibility_new_rounded,
                                 ),
                                 label: const Text('Theme'),
-                                onSelected: (final ModeLabel? number) =>
+                                onSelected: (final _ModeLabel? number) =>
                                     ThemeController.of(
                                       context,
                                     ).updateTheme(number!.number),
-                                dropdownMenuEntries: ModeLabel.entries,
+                                dropdownMenuEntries: _ModeLabel.entries,
                               ),
                             ],
                           );
@@ -154,21 +154,21 @@ class _WaitForInitialization extends StatelessWidget {
   }
 }
 
-typedef ModeEntry = DropdownMenuEntry<ModeLabel>;
+typedef _ModeEntry = DropdownMenuEntry<_ModeLabel>;
 
 // DropdownMenuEntry labels and values for the first dropdown menu.
-enum ModeLabel {
+enum _ModeLabel {
   system('System Theme', 1),
   light('Light Theme', 2),
   dark('Dark Theme', 3);
 
-  const ModeLabel(this.label, this.number);
+  const _ModeLabel(this.label, this.number);
   final String label;
   final int number;
 
-  static final List<ModeEntry> entries = UnmodifiableListView<ModeEntry>(
-    values.map<ModeEntry>(
-      (final ModeLabel number) => ModeEntry(value: number, label: number.label),
+  static final List<_ModeEntry> entries = UnmodifiableListView<_ModeEntry>(
+    values.map<_ModeEntry>(
+      (final _ModeLabel number) => _ModeEntry(value: number, label: number.label),
     ),
   );
 }
