@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:national_identic/main_page.dart';
-import 'package:national_identic/settings_page.dart';
+import 'package:go_router/go_router.dart';
+import 'package:national_identic/routes.dart';
+import 'package:national_identic/theme_controller.dart';
 import 'package:national_identic/theme_map.dart' as theme_map;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +15,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.themeMode});
+
   final ThemeMode themeMode;
 
   @override
@@ -22,6 +24,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.system;
+
+  late final GoRouter _router = GoRouter(
+    routes: $appRoutes,
+    initialLocation: '/',
+  );
+
   @override
   void initState() {
     super.initState();
@@ -45,22 +53,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(final BuildContext context) {
-    //  didChangeDependencies();
-    //final MediaQueryData queryData = MediaQuery.of(context); // тут операнда с размером экрана
-    return MaterialApp(
-      title: 'Nationalic',
-      themeMode: _themeMode,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      routes: <String, WidgetBuilder>{
-        '/home': (final BuildContext context) =>
-            MainPage(updateTheme: _updateThemeMode),
-        '/settings': (final BuildContext context) =>
-            SettingsPage(updateTheme: _updateThemeMode),
-      },
-      initialRoute: '/home',
-      restorationScopeId: '/home',
+    return ThemeController(
+      updateTheme: _updateThemeMode,
+      child: MaterialApp.router(
+        title: 'Nationalic',
+        themeMode: _themeMode,
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        routerConfig: _router,
+      ),
     );
-    // TODO(uleon): reconstruct route map for more performance and reduce problems with navigation. Right now pop is broking all
   }
 }
