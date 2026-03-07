@@ -10,6 +10,7 @@ National Identic is a Flutter app that predicts a person's nationality from thei
 
 ```bash
 flutter pub get          # Install dependencies
+dart run build_runner build --delete-conflicting-outputs  # Generate routes (*.g.dart)
 flutter run              # Run on connected device/simulator
 flutter build apk        # Build Android APK
 flutter build ios        # Build iOS
@@ -22,7 +23,9 @@ No tests exist in the project currently.
 
 ## Architecture
 
-- **`lib/main.dart`** — App entry point and `MyApp` root widget. Manages theme state via `SharedPreferences` and defines named routes (`/home`, `/settings`).
+- **`lib/main.dart`** — App entry point and `MyApp` root widget. Manages theme state via `SharedPreferences`, wraps `MaterialApp.router` with `ThemeController`.
+- **`lib/routes.dart`** — Type-safe route definitions using `go_router_builder` (`@TypedGoRoute` annotations). Generates `routes.g.dart` with `$appRoutes`.
+- **`lib/theme_controller.dart`** — `InheritedWidget` exposing the `updateTheme` callback. Pages access it via `ThemeController.of(context)`.
 - **`lib/main_page.dart`** — Main screen with text input and drawer navigation. Delegates API output to `NatOutput`.
 - **`lib/nationality_future_handler.dart`** — `NatOutput` widget that calls the Nationalize.io API via `FutureBuilder`, parses response into `Nationality` model, and renders result cards with flag emoji.
 - **`lib/nationality.dart`** — Data models (`Nationality`, `Country`) with manual JSON serialization.
@@ -32,6 +35,9 @@ No tests exist in the project currently.
 
 ## Key Dependencies
 
+- `go_router` — Declarative routing via `MaterialApp.router`
+- `go_router_builder` (dev) — Code generation for type-safe routes (`@TypedGoRoute`, `GoRouteData`)
+- `build_runner` (dev) — Code generation runner (`dart run build_runner build --delete-conflicting-outputs`)
 - `shared_preferences` — Theme persistence
 - `http` — API calls to nationalize.io
 - `flutter_emoji` — Country flag rendering
@@ -39,6 +45,7 @@ No tests exist in the project currently.
 
 ## Conventions
 
-- Navigation uses named routes (`/home`, `/settings`) — there is a known TODO to migrate to a better routing approach (go_router branch exists).
+- Routing uses `go_router` with type-safe generated routes via `go_router_builder`. Routes defined in `lib/routes.dart`, generated code in `lib/routes.g.dart` (gitignored). Run `dart run build_runner build --delete-conflicting-outputs` after modifying route definitions.
+- Navigation uses `.go()` (replaces stack). Type-safe: `const SettingsRoute().go(context)`.
 - Theme preference is stored as an int key in SharedPreferences under the `'settings'` key.
 - SDK constraint: Flutter >=3.41.0, Dart >=3.11.0.
