@@ -1,51 +1,57 @@
-// ignore_for_file: sort_constructors_first, inference_failure_on_untyped_parameter, avoid_dynamic_calls, always_specify_types, argument_type_not_assignable TODO(vanyasem): Replace with JsonSerializable
 import 'dart:convert';
 
-class Nationality {
-  final int count;
-  final String name;
-  final List<Country> country;
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:national_identic/json_serializable.dart';
+import 'package:national_identic/serializers.dart';
 
-  Nationality({required this.count, required this.name, required this.country});
+part 'nationality.g.dart';
 
-  factory Nationality.fromRawJson(final String str) =>
-      Nationality.fromJson(json.decode(str));
+abstract class Nationality
+    implements Built<Nationality, NationalityBuilder>, JsonSerializable {
+  factory Nationality([final void Function(NationalityBuilder) updates]) =
+      _$Nationality;
 
-  String toRawJson() => json.encode(toJson());
+  Nationality._();
 
-  factory Nationality.fromJson(final Map<String, dynamic> json) => Nationality(
-    count: json['count'],
-    name: json['name'],
-    country: List<Country>.from(
-      json['country'].map((final x) => Country.fromJson(x)),
-    ),
-  );
+  static Serializer<Nationality> get serializer => _$nationalitySerializer;
 
-  Map<String, dynamic> toJson() => {
-    'count': count,
-    'name': name,
-    'country': List<dynamic>.from(country.map((final x) => x.toJson())),
-  };
+  @BuiltValueField(wireName: 'count')
+  int get count;
+
+  @BuiltValueField(wireName: 'name')
+  String get name;
+
+  @BuiltValueField(wireName: 'country')
+  BuiltList<Country> get country;
+
+  static Nationality fromJson(final Map<String, Object?> jsonMap) =>
+      serializers.deserializeWith(Nationality.serializer, jsonMap)!;
+
+  @override
+  String toJson() =>
+      json.encode(serializers.serializeWith(Nationality.serializer, this));
 }
 
-class Country {
-  final String countryId;
-  final double probability;
+abstract class Country
+    implements Built<Country, CountryBuilder>, JsonSerializable {
+  factory Country([final void Function(CountryBuilder) updates]) = _$Country;
 
-  Country({required this.countryId, required this.probability});
+  Country._();
 
-  factory Country.fromRawJson(final String str) =>
-      Country.fromJson(json.decode(str));
+  static Serializer<Country> get serializer => _$countrySerializer;
 
-  String toRawJson() => json.encode(toJson());
+  @BuiltValueField(wireName: 'country_id')
+  String get countryId;
 
-  factory Country.fromJson(final Map<String, dynamic> json) => Country(
-    countryId: json['country_id'],
-    probability: json['probability']?.toDouble(),
-  );
+  @BuiltValueField(wireName: 'probability')
+  double get probability;
 
-  Map<String, dynamic> toJson() => {
-    'country_id': countryId,
-    'probability': probability,
-  };
+  static Country fromJson(final Map<String, Object?> jsonMap) =>
+      serializers.deserializeWith(Country.serializer, jsonMap)!;
+
+  @override
+  String toJson() =>
+      json.encode(serializers.serializeWith(Country.serializer, this));
 }

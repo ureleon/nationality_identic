@@ -168,7 +168,8 @@ enum _ModeLabel {
 
   static final List<_ModeEntry> entries = UnmodifiableListView<_ModeEntry>(
     values.map<_ModeEntry>(
-      (final _ModeLabel number) => _ModeEntry(value: number, label: number.label),
+      (final _ModeLabel number) =>
+          _ModeEntry(value: number, label: number.label),
     ),
   );
 }
