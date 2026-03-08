@@ -56,9 +56,7 @@ class _MainPageState extends State<MainPage> {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: SingleChildScrollView(
-              child: _rightStart(assertation: name),
-            ),
+            child: SingleChildScrollView(child: _rightStart(assertation: name)),
           ),
         ],
       ),

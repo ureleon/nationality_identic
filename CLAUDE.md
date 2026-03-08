@@ -10,7 +10,7 @@ National Identic is a Flutter app that predicts a person's nationality from thei
 
 ```bash
 flutter pub get          # Install dependencies
-dart run build_runner build --delete-conflicting-outputs  # Generate routes (*.g.dart)
+dart run build_runner build --delete-conflicting-outputs  # Generate code (routes, serializers, built_value)
 flutter run              # Run on connected device/simulator
 flutter build apk        # Build Android APK
 flutter build ios        # Build iOS
@@ -28,13 +28,17 @@ No tests exist in the project currently.
 - **`lib/theme_controller.dart`** — `InheritedWidget` exposing the `updateTheme` callback. Pages access it via `ThemeController.of(context)`.
 - **`lib/main_page.dart`** — Main screen with text input and drawer navigation. Delegates API output to `NatOutput`.
 - **`lib/nationality_future_handler.dart`** — `NatOutput` widget that calls the Nationalize.io API via `FutureBuilder`, parses response into `Nationality` model, and renders result cards with flag emoji.
-- **`lib/nationality.dart`** — Data models (`Nationality`, `Country`) with manual JSON serialization.
+- **`lib/nationality.dart`** — Data models (`Nationality`, `Country`) using `built_value` with generated serialization. Uses `BuiltList` from `built_collection`.
+- **`lib/serializers.dart`** — Central `built_value` serializers registry with `StandardJsonPlugin`. All serializable types listed in `@SerializersFor`.
+- **`lib/json_serializable.dart`** — Abstract interface requiring `String toJson()`, implemented by all data models.
 - **`lib/settings_page.dart`** — Settings screen with theme selector dropdown. Uses `SharedPreferencesWithCache` with legacy migration.
 - **`lib/cards_example.dart`** — Reusable `Card`/`ListTile` widget factory.
 - **`lib/theme_map.dart`** — `Map<int, ThemeMode>` mapping integer keys (1=system, 2=light, 3=dark) used for theme persistence.
 
 ## Key Dependencies
 
+- `built_value` / `built_collection` — Immutable data models with generated serialization
+- `built_value_generator` (dev) — Code generation for `built_value` serializers
 - `go_router` — Declarative routing via `MaterialApp.router`
 - `go_router_builder` (dev) — Code generation for type-safe routes (`@TypedGoRoute`, `GoRouteData`)
 - `build_runner` (dev) — Code generation runner (`dart run build_runner build --delete-conflicting-outputs`)
