@@ -42,7 +42,7 @@ Code is organized into subfolders under `lib/`:
 
 ### `lib/widgets/` — Reusable UI components
 - **`nationality_output.dart`** — `NatOutput` widget that displays nationality results via `FutureBuilder`, rendering result cards with flag emoji.
-- **`cards_example.dart`** — Reusable `Card`/`ListTile` widget factory.
+- **`info_card.dart`** — Reusable `InfoCard` `StatelessWidget` wrapping `Card`/`ListTile`.
 
 ### `lib/services/` — Business logic and API calls
 - **`nationality_service.dart`** — `fetchNationality()` function that calls the Nationalize.io API and parses the response into a `Nationality` model.

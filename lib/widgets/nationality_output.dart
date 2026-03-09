@@ -4,7 +4,7 @@ import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:national_identic/models/country.dart';
 import 'package:national_identic/models/nationality.dart';
 import 'package:national_identic/services/nationality_service.dart';
-import 'package:national_identic/widgets/cards_example.dart';
+import 'package:national_identic/widgets/info_card.dart';
 
 class NatOutput extends StatefulWidget {
   const NatOutput({super.key, required this.firstName});
@@ -40,7 +40,7 @@ class _NatOutputState extends State<NatOutput> {
 
                 for (int o = 0; o < snapData.length; o++) {
                   snapStrokes.add(
-                    cardsExample(
+                    InfoCard(
                       titleText: '',
                       subTitleText:
                           ' ${parser.emojify(':flag-${snapData[o].countryId.toLowerCase()}:')} ${snapData[o].countryId}: ${(snapData[o].probability * 100).roundToDouble()}%\n',
