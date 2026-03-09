@@ -1,13 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_emoji/flutter_emoji.dart';
-import 'package:http/http.dart' as http;
-import 'package:national_identic/cards_example.dart';
-import 'package:national_identic/entity/country.dart';
-import 'package:national_identic/entity/nationality.dart';
+import 'package:national_identic/models/country.dart';
+import 'package:national_identic/models/nationality.dart';
+import 'package:national_identic/services/nationality_service.dart';
+import 'package:national_identic/widgets/cards_example.dart';
 
 class NatOutput extends StatefulWidget {
   const NatOutput({super.key, required this.firstName});
@@ -31,7 +28,7 @@ class _NatOutputState extends State<NatOutput> {
   Widget build(final BuildContext context) {
     if (widget.firstName.isNotEmpty) {
       return FutureBuilder<Nationality>(
-        future: fetchNationality(),
+        future: fetchNationality(widget.firstName),
         builder:
             (
               final BuildContext context,
@@ -66,24 +63,5 @@ class _NatOutputState extends State<NatOutput> {
       );
     }
     return const Spacer();
-  }
-
-  Future<Nationality> fetchNationality() async {
-    if (widget.firstName != '') {
-      final http.Response responseNat = await http.get(
-        Uri.parse('https://api.nationalize.io/?name=${widget.firstName}'),
-      );
-      if (responseNat.statusCode >= 200 && responseNat.statusCode < 300) {
-        return Nationality.fromJson(
-          json.decode(responseNat.body) as Map<String, Object?>,
-        );
-        //throw Exception(response.statusCode);
-      } else {
-        // If the server did not return a 200 OK response,
-        // then throw an exception.
-        throw Exception(responseNat.statusCode);
-      }
-    } else if (widget.firstName == '') {}
-    throw Exception('nat is going to do');
   }
 }

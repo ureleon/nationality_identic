@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:national_identic/main_page.dart';
-import 'package:national_identic/settings_page.dart';
+import 'package:national_identic/pages/main_page.dart';
+import 'package:national_identic/pages/settings_page.dart';
 
 part 'routes.g.dart';
 

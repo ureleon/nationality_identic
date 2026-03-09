@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:national_identic/cards_example.dart';
-import 'package:national_identic/nationality_future_handler.dart';
-import 'package:national_identic/routes.dart';
+import 'package:national_identic/config/routes.dart';
+import 'package:national_identic/widgets/cards_example.dart';
+import 'package:national_identic/widgets/nationality_output.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

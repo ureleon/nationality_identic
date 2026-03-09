@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:national_identic/json_serializable.dart';
-import 'package:national_identic/serializers.dart';
+import 'package:national_identic/models/json_serializable.dart';
+import 'package:national_identic/models/serializers.dart';
 
 part 'country.g.dart';
 
