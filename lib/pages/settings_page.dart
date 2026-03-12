@@ -3,8 +3,8 @@ import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/material.dart';
 
-import 'package:national_identic/routes.dart';
-import 'package:national_identic/theme_controller.dart';
+import 'package:national_identic/config/routes.dart';
+import 'package:national_identic/config/theme_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/util/legacy_to_async_migration_util.dart';
 

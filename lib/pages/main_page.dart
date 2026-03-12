@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:national_identic/cards_example.dart';
-import 'package:national_identic/nationality_future_handler.dart';
-import 'package:national_identic/routes.dart';
+import 'package:national_identic/config/routes.dart';
+import 'package:national_identic/widgets/info_card.dart';
+import 'package:national_identic/widgets/nationality_output.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -70,7 +70,7 @@ class _MainPageState extends State<MainPage> {
                   counter = !counter;
                 });
               },
-              child: cardsExample(
+              child: InfoCard(
                 titleText: 'Description',
                 subTitleText: _subText(isOpen: counter),
               ),
@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
               onTap: () {
                 const SettingsRoute().go(context);
               },
-              child: cardsExample(titleText: 'Settings', subTitleText: ''),
+              child: const InfoCard(titleText: 'Settings', subTitleText: ''),
             ),
             const Spacer(),
           ],

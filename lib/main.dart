@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:national_identic/routes.dart';
-import 'package:national_identic/theme_controller.dart';
-import 'package:national_identic/theme_map.dart' as theme_map;
+import 'package:national_identic/config/routes.dart';
+import 'package:national_identic/config/theme_controller.dart';
+import 'package:national_identic/config/theme_map.dart' as theme_map;
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
