@@ -14,6 +14,7 @@ class _MainPageState extends State<MainPage> {
   late TextEditingController _controller;
   String name = '';
   late bool counter;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: const Color(0xAAAA1111),
@@ -38,7 +40,7 @@ class _MainPageState extends State<MainPage> {
         leading: const DrawerButton(),
         title: const Text('National identic!'),
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           const SizedBox(height: 10),
           TextField(
@@ -55,9 +57,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           const SizedBox(height: 10),
-          Expanded(
-            child: SingleChildScrollView(child: _rightStart(assertation: name)),
-          ),
+          _rightStart(assertation: name),
         ],
       ),
       drawer: Drawer(
@@ -78,6 +78,7 @@ class _MainPageState extends State<MainPage> {
             GestureDetector(
               onTap: () {
                 const SettingsRoute().go(context);
+                _scaffoldKey.currentState?.closeDrawer();
               },
               child: const InfoCard(titleText: 'Settings', subTitleText: ''),
             ),
@@ -105,6 +106,6 @@ Widget _rightStart({required final String assertation}) {
   if (assertation.isNotEmpty) {
     return NatOutput(firstName: assertation);
   } else {
-    return const Spacer();
+    return const SizedBox.shrink();
   }
 }
