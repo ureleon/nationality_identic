@@ -56,9 +56,11 @@ class _NatOutputState extends State<NatOutput> {
                   ],
                 );
               } else if (snapshot.hasError) {
-                throw Exception('snapshot has error: ${snapshot.error}');
+                return Text('application has error: ${snapshot.error}');
               }
-              return const CircularProgressIndicator(color: Colors.redAccent);
+              return const Center(
+                child: CircularProgressIndicator(color: Colors.redAccent),
+              );
             },
       );
     }

@@ -66,64 +66,74 @@ class _PreferencesStateState extends State<PreferencesState> {
 
   @override
   Widget build(final BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            const HomeRoute().go(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: const Text('Settings page'),
-      ),
-      body: Column(
-        children: <Widget>[
-          _WaitForInitialization(
-            initialized: _preferencesReady.future,
-            builder: (final BuildContext context) => FutureBuilder<int>(
-              future: _theme,
-              builder:
-                  (
-                    final BuildContext context,
-                    final AsyncSnapshot<int> snapshot,
-                  ) {
-                    didChangeDependencies();
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.none:
-                        throw Exception('Settings is not here for now');
-                      case ConnectionState.waiting:
-                        return const CircularProgressIndicator(
-                          color: Colors.redAccent,
-                        );
-                      case ConnectionState.active:
-                        throw Exception('settings is loading');
-                      case ConnectionState.done:
-                        if (snapshot.hasError) {
-                          return Text('snasphot has error: ${snapshot.error}');
-                        } else {
-                          return Column(
-                            children: <Widget>[
-                              DropdownMenu<_ModeLabel>(
-                                enableSearch: false,
-                                requestFocusOnTap: false,
-                                leadingIcon: const Icon(
-                                  Icons.accessibility_new_rounded,
-                                ),
-                                label: const Text('Theme'),
-                                onSelected: (final _ModeLabel? number) =>
-                                    ThemeController.of(
-                                      context,
-                                    ).updateTheme(number!.number),
-                                dropdownMenuEntries: _ModeLabel.entries,
-                              ),
-                            ],
-                          );
-                        }
-                    }
-                  },
-            ),
+    return GestureDetector(
+      onHorizontalDragEnd: (DragEndDetails details) {
+        final double velocity = details.velocity.pixelsPerSecond.dx;
+        if (velocity > 350) {
+          const HomeRoute().go(context);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              const HomeRoute().go(context);
+            },
+            icon: const Icon(Icons.arrow_back),
           ),
-        ],
+          title: const Text('Settings page'),
+        ),
+        body: Column(
+          children: <Widget>[
+            _WaitForInitialization(
+              initialized: _preferencesReady.future,
+              builder: (final BuildContext context) => FutureBuilder<int>(
+                future: _theme,
+                builder:
+                    (
+                      final BuildContext context,
+                      final AsyncSnapshot<int> snapshot,
+                    ) {
+                      didChangeDependencies();
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          throw Exception('Settings is not here for now');
+                        case ConnectionState.waiting:
+                          return const CircularProgressIndicator(
+                            color: Colors.redAccent,
+                          );
+                        case ConnectionState.active:
+                          throw Exception('settings is loading');
+                        case ConnectionState.done:
+                          if (snapshot.hasError) {
+                            return Text(
+                              'snasphot has error: ${snapshot.error}',
+                            );
+                          } else {
+                            return Column(
+                              children: <Widget>[
+                                DropdownMenu<_ModeLabel>(
+                                  enableSearch: false,
+                                  requestFocusOnTap: false,
+                                  leadingIcon: const Icon(
+                                    Icons.accessibility_new_rounded,
+                                  ),
+                                  label: const Text('Theme'),
+                                  onSelected: (final _ModeLabel? number) =>
+                                      ThemeController.of(
+                                        context,
+                                      ).updateTheme(number!.number),
+                                  dropdownMenuEntries: _ModeLabel.entries,
+                                ),
+                              ],
+                            );
+                          }
+                      }
+                    },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
